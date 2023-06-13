@@ -1,0 +1,31 @@
+"""
+Given a 0-indexed n x n integer matrix grid, 
+return the number of pairs (ri, cj) such that row ri and column cj are equal.
+A row and column pair is considered equal if they contain the same elements in the same order 
+(i.e., an equal array).
+"""
+class Solution(object):
+    def equalPairs(self, grid):
+        """
+        :type grid: List[List[int]]
+        :rtype: int
+        """
+        row={}
+        ans,res=0,0
+        counter = defaultdict(int)
+
+        for array in grid:
+            counter[tuple(array)] += 1
+        resultR = dict(counter)
+        
+        columns = zip(*grid)  
+        counter = defaultdict(int)
+
+        for column in columns:
+            counter[tuple(column)] += 1     
+        resultC = dict(counter)
+        for r in resultR: 
+            if r in resultC:
+                res=resultR.get(r)*resultC.get(r)
+                ans+=res
+        return ans   
